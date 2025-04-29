@@ -1,0 +1,72 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block title %}Registrar Alumno | Biblioteca CENDI{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Registrar Nuevo Alumno</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.codigo_alumno.id_for_label }}" class="form-label">Código de Alumno</label>
+                        {{ form.codigo_alumno }}
+                        {% if form.codigo_alumno.errors %}
+                            <div class="text-danger">{{ form.codigo_alumno.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+                        {{ form.nombre }}
+                        {% if form.nombre.errors %}
+                            <div class="text-danger">{{ form.nombre.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.apellido_paterno.id_for_label }}" class="form-label">Apellido Paterno</label>
+                        {{ form.apellido_paterno }}
+                        {% if form.apellido_paterno.errors %}
+                            <div class="text-danger">{{ form.apellido_paterno.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.apellido_materno.id_for_label }}" class="form-label">Apellido Materno</label>
+                        {{ form.apellido_materno }}
+                        {% if form.apellido_materno.errors %}
+                            <div class="text-danger">{{ form.apellido_materno.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.escuela.id_for_label }}" class="form-label">Escuela</label>
+                        {{ form.escuela }}
+                        {% if form.escuela.errors %}
+                            <div class="text-danger">{{ form.escuela.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.ciclo.id_for_label }}" class="form-label">Ciclo Escolar</label>
+                        {{ form.ciclo }}
+                        {% if form.ciclo.errors %}
+                            <div class="text-danger">{{ form.ciclo.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Registrar Alumno</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

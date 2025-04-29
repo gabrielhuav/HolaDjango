@@ -11,13 +11,19 @@ services:
       - .:/app
     environment:
       - DJANGO_SETTINGS_MODULE=app.settings
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=biblioteca_cendi
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password # Change this to a secure password
+      - POSTGRES_PASSWORD=password
     depends_on:
       - db
     networks:
       - app-network
+    command: >
+      bash -c "
+        python manage.py makemigrations &&
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000
+      "
 
   db:
     image: postgres:13
@@ -25,10 +31,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./esquema_biblioteca_cendi.sql:/docker-entrypoint-initdb.d/esquema_biblioteca_cendi.sql
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=biblioteca_cendi
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password # Change this to a secure password
+      - POSTGRES_PASSWORD=password
     networks:
       - app-network
 
