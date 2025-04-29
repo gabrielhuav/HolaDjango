@@ -1,6 +1,7 @@
 from django.db import models
 
 class CicloEscolar(models.Model):
+    id_ciclo = models.BigAutoField(primary_key=True) # Explicitly define the PK matching the DB column name
     nombre_ciclo = models.CharField(max_length=50)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
@@ -10,10 +11,11 @@ class CicloEscolar(models.Model):
     
     class Meta:
         verbose_name_plural = "Ciclos Escolares"
-        db_table = 'ciclos_escolares'  # Nombre exacto de la tabla en PostgreSQL
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'ciclos_escolares'
+        managed = False
 
 class Alumno(models.Model):
+    id_alumno = models.BigAutoField(primary_key=True) # Explicitly define the PK
     codigo_alumno = models.CharField(max_length=20, unique=True)
     nombre = models.CharField(max_length=50)
     apellido_paterno = models.CharField(max_length=50)
@@ -26,10 +28,11 @@ class Alumno(models.Model):
     
     class Meta:
         verbose_name_plural = "Alumnos"
-        db_table = 'alumnos'  # Nombre exacto de la tabla en PostgreSQL
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'alumnos'
+        managed = False
 
 class Editorial(models.Model):
+    id_editorial = models.BigAutoField(primary_key=True) # Explicitly define the PK
     codigo_editorial = models.CharField(max_length=20, unique=True)
     nombre = models.CharField(max_length=100)
     direccion = models.TextField(blank=True, null=True)
@@ -40,10 +43,11 @@ class Editorial(models.Model):
     
     class Meta:
         verbose_name_plural = "Editoriales"
-        db_table = 'editoriales'  # Nombre exacto de la tabla en PostgreSQL
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'editoriales'
+        managed = False
 
 class Autor(models.Model):
+    id_autor = models.BigAutoField(primary_key=True) # Explicitly define the PK
     codigo_autor = models.CharField(max_length=20, unique=True)
     nombre = models.CharField(max_length=50)
     apellido_paterno = models.CharField(max_length=50, blank=True, null=True)
@@ -55,10 +59,11 @@ class Autor(models.Model):
     
     class Meta:
         verbose_name_plural = "Autores"
-        db_table = 'autores'  # Nombre exacto de la tabla en PostgreSQL
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'autores'
+        managed = False
 
 class Especialidad(models.Model):
+    id_especialidad = models.BigAutoField(primary_key=True) # Explicitly define the PK
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True, null=True)
     
@@ -67,10 +72,11 @@ class Especialidad(models.Model):
     
     class Meta:
         verbose_name_plural = "Especialidades"
-        db_table = 'especialidades'  # Nombre exacto de la tabla en PostgreSQL
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'especialidades'
+        managed = False
 
 class Libro(models.Model):
+    id_libro = models.BigAutoField(primary_key=True) # Explicitly define the PK
     codigo_libro = models.CharField(max_length=20, unique=True)
     titulo = models.CharField(max_length=200)
     numero_paginas = models.PositiveIntegerField()
@@ -83,22 +89,24 @@ class Libro(models.Model):
     
     class Meta:
         verbose_name_plural = "Libros"
-        db_table = 'libros'  # Nombre exacto de la tabla en PostgreSQL
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'libros'
+        managed = False
 
 class LibroAutor(models.Model):
+    # This model uses a composite primary key defined in Meta, so no single PK field is needed here.
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE, db_column='id_libro')
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE, db_column='id_autor')
     
     class Meta:
-        db_table = 'libros_autores'  # Nombre exacto de la tabla intermedia en PostgreSQL
-        unique_together = ('libro', 'autor')  # Clave primaria compuesta
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'libros_autores'
+        unique_together = ('libro', 'autor') # Defines the composite primary key
+        managed = False
 
 class Prestamo(models.Model):
+    id_prestamo = models.BigAutoField(primary_key=True) # Explicitly define the PK
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE, db_column='id_alumno')
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE, db_column='id_libro')
-    fecha_prestamo = models.DateField(auto_now_add=True)
+    fecha_prestamo = models.DateField(auto_now_add=True) # Note: DB default is CURRENT_DATE, Django default is auto_now_add
     fecha_devolucion = models.DateField(blank=True, null=True)
     devuelto = models.BooleanField(default=False)
     
@@ -107,6 +115,6 @@ class Prestamo(models.Model):
     
     class Meta:
         verbose_name_plural = "Préstamos"
-        db_table = 'prestamos'  # Nombre exacto de la tabla en PostgreSQL
-        unique_together = ('alumno', 'libro', 'fecha_prestamo')  # Clave única compuesta
-        managed = False  # No gestionar esta tabla con migraciones de Django
+        db_table = 'prestamos'
+        unique_together = ('alumno', 'libro', 'fecha_prestamo')
+        managed = False

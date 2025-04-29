@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from datetime import datetime, timedelta
 from .models import Alumno, CicloEscolar, Libro, Prestamo
 from .forms import AlumnoForm
+import logging # Import the logging library
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def index(request):
     """Vista de página inicial"""
@@ -20,18 +24,31 @@ def index(request):
     }
     
     return render(request, 'biblioteca/index.html', context)
+    pass
 
 def registrar_alumno(request):
     """Vista para registrar un nuevo alumno"""
     if request.method == 'POST':
         form = AlumnoForm(request.POST)
+        logger.info(f"Attempting to register alumno. POST data: {request.POST}") # Log POST data
         if form.is_valid():
-            alumno = form.save()
-            messages.success(request, f'¡Alumno {alumno.nombre} registrado correctamente!')
-            return redirect('lista_alumnos')
+            logger.info("AlumnoForm is valid.") # Log form validity
+            try:
+                alumno = form.save()
+                # Use the correct primary key field name 'id_alumno' here
+                logger.info(f"Alumno saved successfully! ID: {alumno.id_alumno}, Name: {alumno.nombre}") # Log successful save 
+                messages.success(request, f'¡Alumno {alumno.nombre} registrado correctamente!')
+                return redirect('lista_alumnos')
+            except Exception as e:
+                logger.error(f"Error saving alumno: {e}", exc_info=True) # Log any exception during save
+                messages.error(request, f'Error al guardar el alumno: {e}')
+        else:
+            logger.warning(f"AlumnoForm is invalid. Errors: {form.errors.as_json()}") # Log form errors if invalid
+            messages.error(request, 'El formulario contiene errores. Por favor, corrígelos.')
     else:
         form = AlumnoForm()
-    
+        logger.info("Displaying empty AlumnoForm for GET request.") # Log GET request
+
     return render(request, 'biblioteca/registrar_alumno.html', {
         'form': form,
     })
