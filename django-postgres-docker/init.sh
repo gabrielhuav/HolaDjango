@@ -12,5 +12,9 @@ echo "Ejecutando migraciones de Django..."
 python manage.py makemigrations
 python manage.py migrate
 
+# Crear datos iniciales si es necesario
+echo "Verificando datos iniciales..."
+python crear_ciclo.py
+
 echo "Iniciando servidor Django..."
 python manage.py runserver 0.0.0.0:8000

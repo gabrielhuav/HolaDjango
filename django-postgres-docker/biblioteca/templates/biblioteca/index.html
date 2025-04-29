@@ -1,0 +1,52 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block title %}Biblioteca CENDI | Inicio{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded">
+    <h1 class="display-4">Biblioteca CENDI</h1>
+    <p class="lead">Sistema de gestión para la biblioteca del Centro de Desarrollo Infantil (CENDI).</p>
+    <hr class="my-4">
+    <p>Administra préstamos, libros, alumnos y más.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'solicitar_prestamo' %}" role="button">Solicitar Préstamo</a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white text-center">
+            <div class="card-body">
+                <h3 class="card-title">{{ total_alumnos }}</h3>
+                <p class="card-text">Alumnos</p>
+                <a href="{% url 'lista_alumnos' %}" class="btn btn-light">Ver Alumnos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white text-center">
+            <div class="card-body">
+                <h3 class="card-title">{{ total_libros }}</h3>
+                <p class="card-text">Libros</p>
+                <a href="#" class="btn btn-light">Ver Libros</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white text-center">
+            <div class="card-body">
+                <h3 class="card-title">{{ total_prestamos }}</h3>
+                <p class="card-text">Préstamos Totales</p>
+                <a href="{% url 'lista_prestamos' %}" class="btn btn-light">Ver Préstamos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark text-center">
+            <div class="card-body">
+                <h3 class="card-title">{{ prestamos_activos }}</h3>
+                <p class="card-text">Préstamos Activos</p>
+                <a href="{% url 'lista_prestamos' %}" class="btn btn-light">Ver Préstamos</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

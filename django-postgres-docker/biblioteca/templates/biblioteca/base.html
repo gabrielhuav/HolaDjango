@@ -9,17 +9,32 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'lista_alumnos' %}">Biblioteca CENDI</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Biblioteca CENDI</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'lista_alumnos' %}">Alumnos</a>
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registrar_alumno' %}">Registrar Alumno</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Alumnos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'lista_alumnos' %}">Listar Alumnos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'registrar_alumno' %}">Registrar Alumno</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Préstamos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'lista_prestamos' %}">Listar Préstamos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'solicitar_prestamo' %}">Solicitar Préstamo</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -37,6 +52,12 @@
 
         {% block content %}{% endblock %}
     </div>
+
+    <footer class="mt-5 py-3 bg-light">
+        <div class="container text-center">
+            <p class="mb-0">Sistema de Biblioteca CENDI &copy; {% now "Y" %}</p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
