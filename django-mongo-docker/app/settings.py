@@ -54,15 +54,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-# Database
+# Database - Configuración para MongoDB
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
-        'HOST': 'db',
-        'PORT': '5432',
+        'ENGINE': 'djongo',
+        'NAME': 'djangodb',
+        'CLIENT': {
+            'host': os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/djangodb'),
+            'port': 27017,
+        }
     }
 }
 
