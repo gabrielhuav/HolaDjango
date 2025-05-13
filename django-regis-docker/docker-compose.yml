@@ -11,22 +11,20 @@ services:
       - .:/app
     environment:
       - DJANGO_SETTINGS_MODULE=app.settings
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     depends_on:
-      - db
+      - redis
     networks:
       - app-network
 
-  db:
-    image: postgres:13
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - redis_data:/data
+    command: redis-server --appendonly yes
     networks:
       - app-network
 
@@ -35,4 +33,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
+  redis_data:
