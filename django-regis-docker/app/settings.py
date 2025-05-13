@@ -62,9 +62,11 @@ REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
+        "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/0",  # Cambiado a DB 0
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SERIALIZER": "django_redis.serializers.json.JSONSerializer",  # Usa serialización JSON
+            "KEY_PREFIX": "",  # Sin prefijo para las claves
         }
     }
 }
