@@ -21,7 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
+    'app', # Your existing app
+    'gestion_piezas', # Make sure this line is present and correct
 ]
 
 MIDDLEWARE = [
@@ -58,10 +59,10 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
+        'NAME': os.environ.get('POSTGRES_DB', 'mastrettadesign'), # Ensures 'mastrettadesign' is the fallback if var not set
         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
-        'HOST': 'db',
+        'HOST': 'db', # This should be correct for Docker Compose
         'PORT': '5432',
     }
 }
