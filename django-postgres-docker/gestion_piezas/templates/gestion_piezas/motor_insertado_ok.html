@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Registrado</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
+        .success-message { color: green; margin-bottom: 20px; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1 class="success-message">¡Motor registrado exitosamente!</h1>
+    <p><a href="{% url 'insertar_motor' %}">Registrar otro motor</a></p>
+    <p><a href="{% url 'insertar_pieza' %}">Registrar una pieza</a></p>
+</body>
+</html>

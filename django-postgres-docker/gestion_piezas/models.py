@@ -17,3 +17,30 @@ class Pieza(models.Model):
 
     def __str__(self):
         return f"{self.id_pieza} - {self.descripcion}"
+
+class Motor(models.Model):
+    TIPO_CHOICES = [
+        ('Motocicleta', 'Motocicleta'),
+        ('Automóvil', 'Automóvil'),
+    ]
+    
+    id_motor = models.CharField(max_length=8, primary_key=True)
+    descripcion = models.TextField()
+    num_piezas = models.IntegerField()
+    programa_cad = models.CharField(max_length=150, blank=True, null=True)
+    tipo = models.CharField(max_length=12, choices=TIPO_CHOICES)
+    caballos_fuerza = models.IntegerField(blank=True, null=True)
+    tipo_refrigeracion = models.CharField(max_length=50, blank=True, null=True)
+    potencia_fiscal = models.IntegerField(blank=True, null=True)
+    tipo_anclaje = models.CharField(max_length=50, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.id_motor} - {self.descripcion}"
+    
+class Operario(models.Model):
+    id_operario = models.CharField(max_length=8, primary_key=True)
+    nombre = models.CharField(max_length=100)
+    sueldo = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    def __str__(self):
+        return f"{self.id_operario} - {self.nombre}"

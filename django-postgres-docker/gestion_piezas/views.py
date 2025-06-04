@@ -1,7 +1,7 @@
 # gestion_piezas/views.py
 from django.shortcuts import render, redirect
-from .forms import PiezaForm
-from .models import Pieza # Ensure Pieza is imported if you add a success message listing pieces
+from .forms import PiezaForm, MotorForm, OperarioForm
+from .models import Pieza, Motor, Operario # Ensure Pieza is imported if you add a success message listing pieces
 
 def insertar_pieza(request):
     if request.method == 'POST':
@@ -21,3 +21,29 @@ def pieza_insertada_ok(request):
     # piezas = Pieza.objects.all()
     # return render(request, 'gestion_piezas/pieza_insertada_ok.html', {'piezas': piezas})
     return render(request, 'gestion_piezas/pieza_insertada_ok.html')
+
+def insertar_motor(request):
+    if request.method == 'POST':
+        form = MotorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('motor_insertado_ok')
+    else:
+        form = MotorForm()
+    return render(request, 'gestion_piezas/insertar_motor.html', {'form': form})
+
+def motor_insertado_ok(request):
+    return render(request, 'gestion_piezas/motor_insertado_ok.html')
+
+def insertar_operario(request):
+    if request.method == 'POST':
+        form = OperarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('operario_insertado_ok')
+    else:
+        form = OperarioForm()
+    return render(request, 'gestion_piezas/insertar_operario.html', {'form': form})
+
+def operario_insertado_ok(request):
+    return render(request, 'gestion_piezas/operario_insertado_ok.html')
