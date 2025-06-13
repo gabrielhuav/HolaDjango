@@ -81,3 +81,10 @@ class LoginForm(forms.Form):
                 raise forms.ValidationError("Credenciales incorrectas")
         
         return cleaned_data
+    
+class AnimeSearchForm(forms.Form):
+    query = forms.CharField(
+        label='Buscar Anime',
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Attack on Titan'})
+    )

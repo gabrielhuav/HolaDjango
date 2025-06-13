@@ -9,4 +9,8 @@ urlpatterns = [
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
     path('login/', views.login_usuario, name='login_usuario'),
     path('logout/', views.logout_usuario, name='logout_usuario'),
+    path('buscar-anime/', views.buscar_anime, name='buscar_anime'),
+    path('toggle-favorito/', views.toggle_favorito, name='toggle_favorito'),
+    path('mis-favoritos/', views.mis_favoritos, name='mis_favoritos'),
+
 ]

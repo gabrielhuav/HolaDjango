@@ -62,19 +62,36 @@
     </style>
 </head>
 <body>
+    
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">Sistema de Usuarios</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/">Inicio</a>
-                {% if request.session.usuario_id %}
-                    <span class="nav-link">Hola, {{ request.session.usuario_nombre }}</span>
-                    <a class="nav-link" href="/usuarios/">Lista de Usuarios</a>
-                    <a class="nav-link" href="/logout/">Cerrar Sesión</a>
-                {% else %}
-                    <a class="nav-link" href="/login/">Iniciar Sesión</a>
-                    <a class="nav-link" href="/registro/">Registro</a>
-                {% endif %}
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Sistema Usuarios</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/">Inicio</a>
+                    <a class="nav-link" href="{% url 'buscar_anime' %}">Buscar Anime</a>
+                    {% if request.session.usuario_id %}
+                        <a class="nav-link" href="{% url 'mis_favoritos' %}">Mis Favoritos</a> {# Nuevo Enlace #}
+                    {% endif %}
+                </div>
+                <div class="navbar-nav ms-auto">
+                    {% if request.session.usuario_id %}
+                        <span class="nav-link">Hola, {{ request.session.usuario_nombre }}</span>
+                        <a class="nav-link" href="{% url 'logout_usuario' %}">
+                            <i class="fas fa-sign-out-alt me-1"></i>Cerrar Sesión
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login_usuario' %}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión
+                        </a>
+                        <a class="nav-link" href="{% url 'registro_usuario' %}">
+                            <i class="fas fa-user-plus me-1"></i>Registrarse
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </nav>

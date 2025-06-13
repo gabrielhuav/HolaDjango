@@ -103,3 +103,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+
+SESSION_TIMEOUT = 2

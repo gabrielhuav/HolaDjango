@@ -25,3 +25,18 @@ class Usuario(models.Model):
         db_table = 'usuarios'
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'
+
+class Favorito(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='favoritos')
+    anime_id = models.IntegerField()  # Corresponde a mal_id de Jikan API
+    anime_titulo = models.CharField(max_length=255)
+    fecha_agregado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('usuario', 'anime_id') # Evita que un usuario marque el mismo anime como favorito múltiples veces
+        db_table = 'favoritos_anime'
+        verbose_name = 'Favorito'
+        verbose_name_plural = 'Favoritos'
+
+    def __str__(self):
+        return f"{self.anime_titulo} (Favorito de {self.usuario.nombre})"
