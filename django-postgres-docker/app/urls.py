@@ -12,5 +12,6 @@ urlpatterns = [
     path('buscar-anime/', views.buscar_anime, name='buscar_anime'),
     path('toggle-favorito/', views.toggle_favorito, name='toggle_favorito'),
     path('mis-favoritos/', views.mis_favoritos, name='mis_favoritos'),
+    path('recomendaciones/', views.recomendaciones_anime, name='recomendaciones_anime'), # Nueva URL
 
 ]

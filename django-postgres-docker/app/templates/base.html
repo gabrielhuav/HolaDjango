@@ -74,7 +74,8 @@
                     <a class="nav-link" href="/">Inicio</a>
                     <a class="nav-link" href="{% url 'buscar_anime' %}">Buscar Anime</a>
                     {% if request.session.usuario_id %}
-                        <a class="nav-link" href="{% url 'mis_favoritos' %}">Mis Favoritos</a> {# Nuevo Enlace #}
+                        <a class="nav-link" href="{% url 'mis_favoritos' %}">Mis Favoritos</a>
+                        <a class="nav-link" href="{% url 'recomendaciones_anime' %}">Recomendaciones</a> {# Nuevo Enlace #}
                     {% endif %}
                 </div>
                 <div class="navbar-nav ms-auto">
